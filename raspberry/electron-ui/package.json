@@ -1,0 +1,41 @@
+{
+  "name": "iot-water-ui",
+  "version": "1.0.0",
+  "description": "Water tank management local GUI",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "npm run copy:html && concurrently \"tsc -p tsconfig.main.json -w\" \"esbuild src/renderer/App.tsx --bundle --outfile=dist/renderer/App.js --format=esm --platform=browser --target=es2020 --sourcemap --watch\" \"wait-on dist/main/main.js dist/renderer/App.js && electron .\"",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "esbuild src/renderer/App.tsx --bundle --outfile=dist/renderer/App.js --format=esm --platform=browser --target=es2020",
+    "typecheck:renderer": "tsc -p tsconfig.renderer.json --noEmit",
+    "copy:html": "mkdir -p dist/renderer && cp src/renderer/index.html dist/renderer/index.html",
+    "build": "npm run build:main && npm run typecheck:renderer && npm run build:renderer && npm run copy:html",
+    "start": "electron .",
+    "pack": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "recharts": "^2.13.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.3",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.7.2",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.iot.watertank",
+    "productName": "Water Tank UI",
+    "linux": {
+      "target": "deb"
+    }
+  }
+}
