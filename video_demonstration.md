@@ -1,0 +1,1 @@
+video demonstration (видео-демонстрация) – https://disk.yandex.ru/d/I2PimLGJtNbbOg
